@@ -1,0 +1,7 @@
+{
+  "username": "User_",
+  "password": "Password",
+  "signingUpSuccessfullyMessage": "Sign up successful.",
+  "existUser": "User",
+  "failToSignupMessage": "This user already exist."
+}
