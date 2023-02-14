@@ -9,6 +9,7 @@ import pageObjectModels.HomePage;
 
 
 public class Register {
+    private WebDriver driver;
     private HomePage home;
     private JSONFileManager testDataReader;
 
@@ -32,7 +33,7 @@ public class Register {
     @BeforeClass
     public void beforeClass() {
         System.setProperty("webdriver.chrome.driver","src/main/resources/driver/chromedriver");
-        WebDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
         driver.get("https://www.demoblaze.com/");
         home = new HomePage(driver);
         testDataReader = new JSONFileManager("src/main/resources/testDataFiles/Register.json");
@@ -40,6 +41,6 @@ public class Register {
 
     @AfterClass
     public void afterClass() {
-        //driver.close();
+        driver.close();
     }
 }
