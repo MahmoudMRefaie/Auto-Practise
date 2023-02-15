@@ -64,7 +64,6 @@ public class Login {
         Assert.assertEquals(testDataReader.getTestData("notExistUserMessage"), home.getLoginError());
     }
 
-
     @BeforeClass
     public void beforeClass() {
         System.setProperty("webdriver.chrome.driver","src/main/resources/driver/chromedriver");

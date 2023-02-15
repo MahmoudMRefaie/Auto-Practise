@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class HomePage {
+public class HomePage extends Main {
 
     private final WebDriver driver;
     private final By signup = By.linkText("Sign up");
@@ -26,6 +26,12 @@ public class HomePage {
         this.driver = driver;
     }
 
+    /**
+     * This method is used to register a new user
+     * @param username desired registered username
+     * @param password desired registered password
+     * @return registration message that displayed in the alert
+     */
     public String registerUser(String username, String password) {
         driver.findElement(signup).click();
 
@@ -50,6 +56,11 @@ public class HomePage {
         return alertMessage;
     }
 
+    /**
+     * This method is used to login to the system
+     * @param username username
+     * @param password password
+     */
     public void login(String username, String password) {
         driver.findElement(login).click();
 
@@ -64,6 +75,9 @@ public class HomePage {
         driver.findElement(loginButton).click();
     }
 
+    /**
+     * This method is used to logout from the system
+     */
     public void logout() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.elementToBeClickable(logout));
@@ -71,6 +85,10 @@ public class HomePage {
         driver.findElement(logout).click();
     }
 
+    /**
+     * This method is used to retrieve welcoming message after logging in
+     * @return welcoming message for the user
+     */
     public String getWelcomingMessage() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.elementToBeClickable(nameOfUser));
@@ -78,6 +96,10 @@ public class HomePage {
         return driver.findElement(nameOfUser).getText();
     }
 
+    /**
+     * This method is user to retrieve login error message
+     * @return login error message
+     */
     public String getLoginError(){
         WebDriverWait alertWait = new WebDriverWait(driver, Duration.ofSeconds(3));
         alertWait.until(ExpectedConditions.alertIsPresent());
