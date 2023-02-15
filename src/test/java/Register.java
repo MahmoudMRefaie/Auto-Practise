@@ -7,7 +7,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjectModels.HomePage;
 
-
 public class Register {
     private WebDriver driver;
     private HomePage home;
@@ -29,6 +28,21 @@ public class Register {
         Assert.assertEquals(testDataReader.getTestData("failToSignupMessage"), registrationStatus);
     }
 
+    @Test
+    public void registerWithEmptyUsername(){
+        String registrationStatus = home.registerUser("",
+                testDataReader.getTestData("password"));
+
+        Assert.assertEquals(testDataReader.getTestData("emptyUsernameOrPasswordMessage"), registrationStatus);
+    }
+
+    @Test
+    public void registerWithEmptyPassword(){
+        String registrationStatus = home.registerUser(testDataReader.getTestData("username") + String.valueOf(System.currentTimeMillis()),
+                "");
+
+        Assert.assertEquals(testDataReader.getTestData("emptyUsernameOrPasswordMessage"), registrationStatus);
+    }
 
     @BeforeClass
     public void beforeClass() {
@@ -41,6 +55,6 @@ public class Register {
 
     @AfterClass
     public void afterClass() {
-        driver.close();
+        //driver.close();
     }
 }

@@ -26,6 +26,7 @@ public class HomePage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));   //Explicit wait
         wait.until(ExpectedConditions.elementToBeClickable(usernameElement));
 
+        System.out.println("Register with username [" + username + "] and password [" + password + "]");
         driver.findElement(usernameElement).clear();
         driver.findElement(usernameElement).sendKeys(username);
         driver.findElement(passwordElement).clear();
