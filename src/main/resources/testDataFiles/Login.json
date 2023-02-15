@@ -1,0 +1,10 @@
+{
+  "username": "MMRefaie",
+  "password": "password",
+  "notExistUser": "MMRefaieNNTT1122",
+  "caseSensitiveUsername": "mmRefaie",
+  "wrongPassword": "pas",
+  "notExistUserMessage": "User does not exist.",
+  "wrongPasswordMessage": "Wrong password.",
+  "emptyUsernameOrPassword": "Please fill out Username and Password."
+}
