@@ -20,6 +20,7 @@ import static io.restassured.RestAssured.given;
 public class Main {
 
     private final WebDriver driver;
+    private final By home = By.linkText("Home");
     private final By login = By.linkText("Log in");
     private final By loginUsernameElement = By.id("loginusername");
     private final By loginPasswordElement = By.id("loginpassword");
@@ -104,6 +105,20 @@ public class Main {
         wait.until(ExpectedConditions.elementToBeClickable(logout));
 
         driver.findElement(logout).click();
+    }
+
+    /**
+     * This method is used to navigate to home page
+     */
+    public void navigateToHome() {
+        driver.get("https://www.demoblaze.com/");
+    }
+
+    /**
+     * This method is used to navigate to cart page
+     */
+    public void navigateToCart() {
+        driver.get("https://www.demoblaze.com/cart.html");
     }
 
 }

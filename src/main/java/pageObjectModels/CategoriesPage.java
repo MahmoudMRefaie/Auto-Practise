@@ -1,7 +1,6 @@
 package pageObjectModels;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class Categories extends Main {
+public class CategoriesPage extends Main {
     private final WebDriver driver;
     private final By categoriesHeader = By.linkText("CATEGORIES");
     private final By phonesCatElement = By.linkText("Phones");
@@ -18,7 +17,7 @@ public class Categories extends Main {
     private final By monitorsCatElement = By.linkText("Monitors");
     private final By itemsContainer = By.id("tbodyid");
 
-    public Categories(WebDriver driver) {
+    public CategoriesPage(WebDriver driver) {
         super(driver);
         this.driver = driver;
     }

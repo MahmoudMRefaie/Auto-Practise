@@ -6,33 +6,33 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import pageObjectModels.Categories;
-import pageObjectModels.Categories.CategoriesElement;
+import pageObjectModels.CategoriesPage;
+import pageObjectModels.CategoriesPage.CategoriesElement;
 
 import java.util.List;
 
 public class Category {
     private WebDriver driver;
-    private Categories categories;
+    private CategoriesPage categoriesPage;
     private JSONFileManager testDataReader;
 
     @Test
     public void checkPhonesCategoryHasItems(){
-        List<WebElement> items = categories.getCategoryItems(CategoriesElement.PHONES.geCategoriesElement());
+        List<WebElement> items = categoriesPage.getCategoryItems(CategoriesElement.PHONES.geCategoriesElement());
 
         Assert.assertNotEquals(0,items.size());
     }
 
     @Test
     public void checkLaptopsCategoryHasItems(){
-        List<WebElement> items = categories.getCategoryItems(CategoriesElement.LAPTOPS.geCategoriesElement());
+        List<WebElement> items = categoriesPage.getCategoryItems(CategoriesElement.LAPTOPS.geCategoriesElement());
 
         Assert.assertNotEquals(0,items.size());
     }
 
     @Test
     public void checkMonitorsCategoryHasItems(){
-        List<WebElement> items = categories.getCategoryItems(CategoriesElement.MONITORS.geCategoriesElement());
+        List<WebElement> items = categoriesPage.getCategoryItems(CategoriesElement.MONITORS.geCategoriesElement());
 
         Assert.assertNotEquals(0,items.size());
     }
@@ -42,7 +42,7 @@ public class Category {
         System.setProperty("webdriver.chrome.driver","src/main/resources/driver/chromedriver");
         driver = new ChromeDriver();
         driver.get("https://www.demoblaze.com/");
-        categories = new Categories(driver);
+        categoriesPage = new CategoriesPage(driver);
         testDataReader = new JSONFileManager("src/main/resources/testDataFiles/Category.json");
     }
 
