@@ -1,8 +1,0 @@
-{
-  "username": "User_",
-  "password": "Password",
-  "existUser": "User",
-  "signingUpSuccessfullyMessage": "Sign up successful.",
-  "failToSignupMessage": "This user already exist.",
-  "emptyUsernameOrPasswordMessage": "Please fill out Username and Password."
-}
