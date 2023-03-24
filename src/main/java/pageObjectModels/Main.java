@@ -3,9 +3,9 @@ package pageObjectModels;
 import com.google.gson.JsonObject;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.framework.ReportManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.SessionId;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -59,7 +59,7 @@ public class Main {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.elementToBeClickable(loginUsernameElement));
 
-        System.out.println("Login with username [" + username + "] and password [" + password + "]");
+        ReportManager.log("Login with username [" + username + "] and password [" + password + "]");
         driver.findElement(loginUsernameElement).clear();
         driver.findElement(loginUsernameElement).sendKeys(username);
         driver.findElement(loginPasswordElement).clear();

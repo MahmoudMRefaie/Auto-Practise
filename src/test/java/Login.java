@@ -1,6 +1,7 @@
 import org.framework.JSONFileManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjectModels.HomePage;
@@ -65,16 +66,16 @@ public class Login {
     }
 
     @BeforeClass
-    public void beforeClass() {
+    public void setUp() {
         System.setProperty("webdriver.chrome.driver","src/main/resources/driver/chromedriver");
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(new ChromeOptions().addArguments("--remote-allow-origins=*"));
         driver.get("https://www.demoblaze.com/");
         home = new HomePage(driver);
         testDataReader = new JSONFileManager("src/main/resources/testDataFiles/Login.json");
     }
 
     @AfterClass
-    public void tearDone() {
+    public void tearDown() {
         home.logout();
         driver.close();
     }

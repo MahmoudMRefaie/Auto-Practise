@@ -1,5 +1,6 @@
 package pageObjectModels;
 
+import org.framework.ReportManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -35,7 +36,7 @@ public class HomePage extends Main {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));   //Explicit wait
         wait.until(ExpectedConditions.elementToBeClickable(registerUsernameElement));
 
-        System.out.println("Register with username [" + username + "] and password [" + password + "]");
+        ReportManager.log("Register with username [" + username + "] and password [" + password + "]");
         driver.findElement(registerUsernameElement).clear();
         driver.findElement(registerUsernameElement).sendKeys(username);
         driver.findElement(registerPasswordElement).clear();
