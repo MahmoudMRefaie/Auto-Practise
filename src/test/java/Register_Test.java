@@ -1,14 +1,13 @@
 import org.framework.JSONFileManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjectModels.HomePage;
 
-public class Register {
+public class Register_Test {
     private WebDriver driver;
     private HomePage home;
     private JSONFileManager testDataReader;
@@ -47,11 +46,8 @@ public class Register {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver","src/main/resources/driver/chromedriver");
-//        ChromeOptions option = new ChromeOptions();
-//        option.addArguments("--remote-allow-origins=*");
 
-        driver = new ChromeDriver(new ChromeOptions().addArguments("--remote-allow-origins=*"));
+        driver = new ChromeDriver();
         driver.get("https://www.demoblaze.com/");
         home = new HomePage(driver);
         testDataReader = new JSONFileManager("src/main/resources/testDataFiles/Register.json");

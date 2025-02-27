@@ -6,7 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjectModels.HomePage;
 
-public class Login {
+public class Login_Test {
     private WebDriver driver;
     private HomePage home;
     private JSONFileManager testDataReader;
@@ -67,8 +67,7 @@ public class Login {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver","src/main/resources/driver/chromedriver");
-        driver = new ChromeDriver(new ChromeOptions().addArguments("--remote-allow-origins=*"));
+        driver = new ChromeDriver();
         driver.get("https://www.demoblaze.com/");
         home = new HomePage(driver);
         testDataReader = new JSONFileManager("src/main/resources/testDataFiles/Login.json");

@@ -1,23 +1,14 @@
 import org.framework.JSONFileManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjectModels.CartPage;
-import pageObjectModels.CategoriesPage;
-import pageObjectModels.CategoriesPage.CategoriesElement;
 
-import java.time.Duration;
-import java.util.List;
-
-public class Cart {
+public class Cart_Test {
     private WebDriver driver;
     private CartPage cartPage;
     private JSONFileManager testDataReader;
@@ -67,8 +58,7 @@ public class Cart {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver","src/main/resources/driver/chromedriver");
-        driver = new ChromeDriver(new ChromeOptions().addArguments("--remote-allow-origins=*"));
+        driver = new ChromeDriver();
         driver.get("https://www.demoblaze.com/");
         cartPage = new CartPage(driver);
         testDataReader = new JSONFileManager("src/main/resources/testDataFiles/Cart.json");

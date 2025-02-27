@@ -2,7 +2,6 @@ import org.framework.JSONFileManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -12,7 +11,7 @@ import pageObjectModels.CategoriesPage.CategoriesElement;
 
 import java.util.List;
 
-public class Category {
+public class Category_Test {
     private WebDriver driver;
     private CategoriesPage categoriesPage;
     private JSONFileManager testDataReader;
@@ -40,8 +39,7 @@ public class Category {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver","src/main/resources/driver/chromedriver");
-        driver = new ChromeDriver(new ChromeOptions().addArguments("--remote-allow-origins=*"));
+        driver = new ChromeDriver();
         driver.get("https://www.demoblaze.com/");
         categoriesPage = new CategoriesPage(driver);
         testDataReader = new JSONFileManager("src/main/resources/testDataFiles/Category.json");
