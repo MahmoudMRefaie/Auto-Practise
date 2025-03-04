@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class CategoriesPage extends Main {
+public class CategoriesPage extends BasePage {
     private final WebDriver driver;
     private final By categoriesHeader = By.linkText("CATEGORIES");
     private final By phonesCatElement = By.linkText("Phones");

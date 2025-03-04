@@ -6,12 +6,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.AlertActions;
+import utils.ElementActions;
 
 import java.time.Duration;
 
-public class HomePage extends Main {
+public class HomePage extends BasePage {
 
-    private WebDriver driver;
+    private final WebDriver driver;
     private final By signup = By.linkText("Sign up");
     private final By registerUsernameElement = By.id("sign-username");
     private final By registerPasswordElement = By.id("sign-password");
@@ -31,22 +33,31 @@ public class HomePage extends Main {
      * @return registration message that displayed in the alert
      */
     public String registerUser(String username, String password) {
-        driver.findElement(signup).click();
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));   //Explicit wait
+//        wait.until(ExpectedConditions.elementToBeClickable(signup));
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));   //Explicit wait
-        wait.until(ExpectedConditions.elementToBeClickable(registerUsernameElement));
+        ElementActions.click(driver, signup);
+        //driver.findElement(signup).click();
+
+//        wait.until(ExpectedConditions.elementToBeClickable(registerUsernameElement));
 
         ReportManager.log("Register with username [" + username + "] and password [" + password + "]");
-        driver.findElement(registerUsernameElement).clear();
-        driver.findElement(registerUsernameElement).sendKeys(username);
-        driver.findElement(registerPasswordElement).clear();
-        driver.findElement(registerPasswordElement).sendKeys(password);
-        driver.findElement(signupButton).click();
+//        driver.findElement(registerUsernameElement).clear();
+        ElementActions.sendKeys(driver, registerUsernameElement, username);
+        //driver.findElement(registerUsernameElement).sendKeys(username);
+//        driver.findElement(registerPasswordElement).clear();
+        ElementActions.sendKeys(driver, registerPasswordElement, password);
+        //driver.findElement(registerPasswordElement).sendKeys(password);
+        ElementActions.click(driver, signupButton);
+        //driver.findElement(signupButton).click();
 
-        WebDriverWait alertWait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        alertWait.until(ExpectedConditions.alertIsPresent());
-        String alertMessage = driver.switchTo().alert().getText();
-        driver.switchTo().alert().accept();
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));   //Explicit wait
+//        wait.until(ExpectedConditions.alertIsPresent());
+//        String alertMessage = driver.switchTo().alert().getText();
+//        driver.switchTo().alert().accept();
+
+        String alertMessage = AlertActions.getAlertText(driver);
+        AlertActions.acceptAlert(driver);
 
         Actions action = new Actions(driver);
         action.moveByOffset(0, 0).click().build().perform();
@@ -59,10 +70,11 @@ public class HomePage extends Main {
      * @return welcoming message for the user
      */
     public String getWelcomingMessage() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.elementToBeClickable(nameOfUser));
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+//        wait.until(ExpectedConditions.elementToBeClickable(nameOfUser));
 
-        return driver.findElement(nameOfUser).getText();
+        return ElementActions.getText(driver, nameOfUser);
+        //return driver.findElement(nameOfUser).getText();
     }
 
     /**

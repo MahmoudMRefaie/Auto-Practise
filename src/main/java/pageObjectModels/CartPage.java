@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class CartPage extends Main {
+public class CartPage extends BasePage {
     private final WebDriver driver;
     private final By cardTitle = By.xpath("//h4 [@class='card-title']");
     private final By btn_placeOrder = By.xpath("//button [@class='btn btn-success']");
