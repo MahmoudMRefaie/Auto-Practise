@@ -6,18 +6,12 @@ import io.restassured.response.Response;
 import org.framework.ReportManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.time.Duration;
-import java.util.Properties;
+import utils.BrowserActions;
+import utils.ElementActions;
 
 import static io.restassured.RestAssured.given;
 
-public class Main {
+public class BasePage {
 
     private final WebDriver driver;
     private final By home = By.linkText("Home");
@@ -27,7 +21,7 @@ public class Main {
     private final By loginButton = By.xpath("//button[@onclick='logIn()']");
     private final By logout = By.linkText("Log out");
 
-    public Main(WebDriver driver){
+    public BasePage(WebDriver driver){
         this.driver = driver;
         readProperties();
     }
@@ -54,17 +48,24 @@ public class Main {
      * @param password password
      */
     public void login(String username, String password) {
-        driver.findElement(login).click();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.elementToBeClickable(loginUsernameElement));
+        ElementActions.click(driver, login);
+        //driver.findElement(login).click();
+
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+//        wait.until(ExpectedConditions.elementToBeClickable(loginUsernameElement));
 
         ReportManager.log("Login with username [" + username + "] and password [" + password + "]");
-        driver.findElement(loginUsernameElement).clear();
-        driver.findElement(loginUsernameElement).sendKeys(username);
-        driver.findElement(loginPasswordElement).clear();
-        driver.findElement(loginPasswordElement).sendKeys(password);
-        driver.findElement(loginButton).click();
+//        ElementActions.clear(driver, loginUsernameElement);
+//        driver.findElement(loginUsernameElement).clear();
+        ElementActions.sendKeys(driver, loginUsernameElement, username);
+        //driver.findElement(loginUsernameElement).sendKeys(username);
+//        ElementActions.clear(driver, loginPasswordElement);
+//        driver.findElement(loginPasswordElement).clear();
+        ElementActions.sendKeys(driver, loginPasswordElement, password);
+        //driver.findElement(loginPasswordElement).sendKeys(password);
+        ElementActions.click(driver, loginButton);
+        //driver.findElement(loginButton).click();
     }
 
     /**
@@ -101,24 +102,25 @@ public class Main {
      * This method is used to logout from the system
      */
     public void logout() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.elementToBeClickable(logout));
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+//        wait.until(ExpectedConditions.elementToBeClickable(logout));
 
-        driver.findElement(logout).click();
+        ElementActions.click(driver, logout);
+        //driver.findElement(logout).click();
     }
 
     /**
      * This method is used to navigate to home page
      */
     public void navigateToHome() {
-        driver.get("https://www.demoblaze.com/");
+        BrowserActions.navigateToURL(driver, "https://www.demoblaze.com/");
     }
 
     /**
      * This method is used to navigate to cart page
      */
     public void navigateToCart() {
-        driver.get("https://www.demoblaze.com/cart.html");
+        BrowserActions.navigateToURL(driver,"https://www.demoblaze.com/cart.html");
     }
 
 }
