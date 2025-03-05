@@ -1,3 +1,4 @@
+import driver.DriverManager;
 import org.framework.JSONFileManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -39,9 +40,9 @@ public class Category_Test {
 
     @BeforeClass
     public void setUp() {
-        driver = new ChromeDriver();
-        driver.get("https://www.demoblaze.com/");
+        driver = DriverManager.createInstance("safari").getDriver();
         categoriesPage = new CategoriesPage(driver);
+        categoriesPage.navigateToHome();
         testDataReader = new JSONFileManager("src/main/resources/testDataFiles/Category.json");
     }
 

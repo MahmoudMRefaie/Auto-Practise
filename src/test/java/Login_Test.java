@@ -1,3 +1,4 @@
+import driver.DriverManager;
 import org.framework.JSONFileManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -67,9 +68,9 @@ public class Login_Test {
 
     @BeforeClass
     public void setUp() {
-        driver = new ChromeDriver();
-        driver.get("https://www.demoblaze.com/");
+        driver = DriverManager.createInstance("chrome").getDriver();
         home = new HomePage(driver);
+        home.navigateToHome();
         testDataReader = new JSONFileManager("src/main/resources/testDataFiles/Login.json");
     }
 

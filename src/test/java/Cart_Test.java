@@ -1,3 +1,4 @@
+import driver.DriverManager;
 import org.framework.JSONFileManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,7 +15,7 @@ public class Cart_Test {
     private JSONFileManager testDataReader;
 
     @Test
-    public void addRandomItemToCart(){
+    public void addRandomItemToCart() {
         cartPage.selectRandomItem();
         String itemStatus = cartPage.addItemToCart();
 
@@ -22,7 +23,7 @@ public class Cart_Test {
     }
 
     @Test
-    public void addSpecificItemToCart(){
+    public void addSpecificItemToCart() {
         cartPage.selectItem(testDataReader.getTestData("itemName"));
         String itemStatus = cartPage.addItemToCart();
 
@@ -30,13 +31,13 @@ public class Cart_Test {
     }
 
     @Test
-    public void removeItemFromCart(){
+    public void removeItemFromCart() {
         cartPage.navigateToCart();
         cartPage.deleteItem();
     }
 
     @Test(priority = 1)
-    public void completeCheckout(){
+    public void completeCheckout() {
         cartPage.navigateToCart();
         cartPage.placeOrder();
         cartPage.addBuyerInfo(testDataReader.getTestData("fullName"),
@@ -58,9 +59,9 @@ public class Cart_Test {
 
     @BeforeClass
     public void setUp() {
-        driver = new ChromeDriver();
-        driver.get("https://www.demoblaze.com/");
+        driver = DriverManager.createInstance("firefox").getDriver();
         cartPage = new CartPage(driver);
+        cartPage.navigateToHome();
         testDataReader = new JSONFileManager("src/main/resources/testDataFiles/Cart.json");
     }
 

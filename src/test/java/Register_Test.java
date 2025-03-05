@@ -1,3 +1,4 @@
+import driver.DriverManager;
 import org.framework.JSONFileManager;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
@@ -51,19 +52,11 @@ public class Register_Test {
     }
 
     @BeforeClass
-    public void setUp() throws MalformedURLException {
+    public void setUp() {
 
-//        driver = new ChromeDriver();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("start-maximized");
-        options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-//        String gridURL = "https://faab-109-83-121-90.ngrok-free.app";       // using ngrok at VM
-        String gridURL = "http://localhost:4444";                           // using ssh tunnelling on VM
-//        driver = new RemoteWebDriver(new URL(gridURL), options);
-        driver = new RemoteWebDriver(new URL(gridURL), options);      // Another machine connects to my local network
-
-        driver.get("https://www.demoblaze.com/");
+        driver = DriverManager.createInstance("remote").getDriver();
         home = new HomePage(driver);
+        home.navigateToHome();
         testDataReader = new JSONFileManager("src/main/resources/testDataFiles/Register.json");
     }
 
