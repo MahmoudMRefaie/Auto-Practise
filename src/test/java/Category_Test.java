@@ -2,13 +2,12 @@ import driver.DriverManager;
 import org.framework.JSONFileManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjectModels.CategoriesPage;
-import pageObjectModels.CategoriesPage.CategoriesElement;
+import pageObjectModels.CategoriesPage.Categories;
 
 import java.util.List;
 
@@ -19,21 +18,21 @@ public class Category_Test {
 
     @Test
     public void checkPhonesCategoryHasItems(){
-        List<WebElement> items = categoriesPage.getCategoryItems(CategoriesElement.PHONES.geCategoriesElement());
+        List<WebElement> items = categoriesPage.getCategoryItems(Categories.PHONES);
 
         Assert.assertNotEquals(0,items.size());
     }
 
     @Test
     public void checkLaptopsCategoryHasItems(){
-        List<WebElement> items = categoriesPage.getCategoryItems(CategoriesElement.LAPTOPS.geCategoriesElement());
+        List<WebElement> items = categoriesPage.getCategoryItems(Categories.LAPTOPS);
 
         Assert.assertNotEquals(0,items.size());
     }
 
     @Test
     public void checkMonitorsCategoryHasItems(){
-        List<WebElement> items = categoriesPage.getCategoryItems(CategoriesElement.MONITORS.geCategoriesElement());
+        List<WebElement> items = categoriesPage.getCategoryItems(Categories.MONITORS);
 
         Assert.assertNotEquals(0,items.size());
     }

@@ -17,16 +17,19 @@ public class Waits {
     }
 
     public static WebElement waitForElementToBePresent(WebDriver driver, By locator) {
+        ReportManager.info("Waiting for element to be present: ", locator.toString());
         return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT))
                 .until(driver1 -> driver1.findElement(locator));
     }
 
     public static Alert waitForAlertToBePresent(WebDriver driver) {
+        ReportManager.info("Waiting for alert to be present in page: ", driver.getCurrentUrl());
         return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT))
-                .until(ExpectedConditions.alertIsPresent());   //Explicit wait
+                .until(ExpectedConditions.alertIsPresent());
     }
 
     public static WebElement waitForElementToBeVisible(WebDriver driver, By locator) {
+        ReportManager.info("Waiting for element to be visible: ", locator.toString());
         return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT))
                 .until(driver1 -> {
                     WebElement element = waitForElementToBePresent(driver, locator);
@@ -34,15 +37,16 @@ public class Waits {
                 });
     }
 
-    public static void waitForElementToBeClickable(WebDriver driver, By locator) {
-        new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT))
+    public static WebElement waitForElementToBeClickable(WebDriver driver, By locator) {
+        ReportManager.info("Waiting for element to be clickable: ", locator.toString());
+        return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT))
                 .until(driver1 -> {
                     WebElement element = waitForElementToBePresent(driver, locator);
                     return element.isEnabled() ? element : null;
                 });
 
-        new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT))
-                .until(driver1 -> waitForElementToBePresent(driver, locator).isEnabled() ? driver1 : null);
+//        return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT))
+//                .until(driver1 -> waitForElementToBePresent(driver, locator).isEnabled() ? driver1 : null);
 
     }
 

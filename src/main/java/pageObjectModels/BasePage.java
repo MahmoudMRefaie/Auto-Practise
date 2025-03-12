@@ -3,7 +3,7 @@ package pageObjectModels;
 import com.google.gson.JsonObject;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.framework.ReportManager;
+import org.framework.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import utils.BrowserActions;
@@ -55,7 +55,7 @@ public class BasePage {
 //        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 //        wait.until(ExpectedConditions.elementToBeClickable(loginUsernameElement));
 
-        ReportManager.log("Login with username [" + username + "] and password [" + password + "]");
+        Logger.log("Login with username [" + username + "] and password [" + password + "]");
 //        ElementActions.clear(driver, loginUsernameElement);
 //        driver.findElement(loginUsernameElement).clear();
         ElementActions.sendKeys(driver, loginUsernameElement, username);

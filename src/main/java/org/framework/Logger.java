@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.testng.Reporter;
 
-public class ReportManager {
+public class Logger {
 
     private static final String TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss ZZZZ";
 

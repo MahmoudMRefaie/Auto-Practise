@@ -15,6 +15,7 @@ public class ElementActions {
     public static void sendKeys(WebDriver driver, By locator, String text){
 
         clear(driver, locator);
+        ReportManager.info("Sending text: ", text, " to the element: ", locator.toString());
         driver.findElement(locator).sendKeys(text);
     }
 
@@ -22,6 +23,7 @@ public class ElementActions {
 
         Waits.waitForElementToBeVisible(driver, locator);
         Scrolling.scrollToElement(driver, locator);
+        ReportManager.info("Sending text: ", text, " to the element: ", locator.toString());
         driver.findElement(locator).sendKeys(text);
     }
 
@@ -29,19 +31,24 @@ public class ElementActions {
 
         Waits.waitForElementToBeVisible(driver, locator);
         Scrolling.scrollToElement(driver, locator);
-        driver.findElement(locator).clear();
+        WebElement element = driver.findElement(locator);
+        ReportManager.info("Clearing the text field: ", locator.toString(), "from text: ", element.getText());
+
+        element.clear();
     }
 
     public static void click(WebDriver driver, By locator){
 
         Waits.waitForElementToBeClickable(driver, locator);
         Scrolling.scrollToElement(driver, locator);
+        ReportManager.info("Clicking on the element: ", locator.toString());
         driver.findElement(locator).click();
     }
 
     public static String getText(WebDriver driver, By locator){
         Waits.waitForElementToBeVisible(driver, locator);
         Scrolling.scrollToElement(driver, locator);
+        ReportManager.info("Getting text from the element: ", locator.toString());
         return driver.findElement(locator).getText();
     }
 

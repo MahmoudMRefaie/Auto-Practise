@@ -1,6 +1,6 @@
 package pageObjectModels;
 
-import org.framework.ReportManager;
+import org.framework.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -41,7 +41,7 @@ public class HomePage extends BasePage {
 
 //        wait.until(ExpectedConditions.elementToBeClickable(registerUsernameElement));
 
-        ReportManager.log("Register with username [" + username + "] and password [" + password + "]");
+        Logger.log("Register with username [" + username + "] and password [" + password + "]");
 //        driver.findElement(registerUsernameElement).clear();
         ElementActions.sendKeys(driver, registerUsernameElement, username);
         //driver.findElement(registerUsernameElement).sendKeys(username);

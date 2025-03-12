@@ -14,18 +14,22 @@ public class AlertActions {
     }
 
     public static void acceptAlert(WebDriver driver) {
+        ReportManager.info("Alert to be accepted: ", driver.getCurrentUrl());
         getAlert(driver).accept();
     }
 
     public static void dismissAlert(WebDriver driver) {
+        ReportManager.info("Alert to be dismissed: ", driver.getCurrentUrl());
         getAlert(driver).dismiss();
     }
 
     public static String getAlertText(WebDriver driver) {
+        ReportManager.info("Getting alter text: ", driver.getCurrentUrl());
         return getAlert(driver).getText();
     }
 
     public static void sendTextToAlert(WebDriver driver, String text) {
+        ReportManager.info("Sending text to alert: ", driver.getCurrentUrl(), " text: ", text);
         getAlert(driver).sendKeys(text);
     }
 }
