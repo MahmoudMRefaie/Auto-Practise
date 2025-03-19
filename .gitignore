@@ -1,4 +1,6 @@
 # ignore these...
+/test-outputs/
+/logs/
 /allure-results/
 /target/
 /.idea/

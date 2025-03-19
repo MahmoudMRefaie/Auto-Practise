@@ -1,5 +1,6 @@
 package pageObjectModels;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -36,6 +37,7 @@ public class CategoriesPage extends BasePage {
         }
     }
 
+    @Step("Getting items for category: {category}")
     public List<WebElement> getCategoryItems(Categories category) {
         List<WebElement> items = null;
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));

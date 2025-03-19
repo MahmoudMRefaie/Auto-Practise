@@ -5,6 +5,8 @@ import org.apache.logging.log4j.Logger;
 
 public class ReportManager {
 
+    public static final String LOGS_RESULTS_PATH = "test-outputs/logs";
+
     private ReportManager() {
         throw new UnsupportedOperationException("Utility class - cannot be instantiated");
     }

@@ -1,5 +1,6 @@
 package pageObjectModels;
 
+import io.qameta.allure.Step;
 import org.framework.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -32,6 +33,7 @@ public class HomePage extends BasePage {
      * @param password desired registered password
      * @return registration message that displayed in the alert
      */
+    @Step("Register with username: {username} and password: {password}")
     public String registerUser(String username, String password) {
 //        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));   //Explicit wait
 //        wait.until(ExpectedConditions.elementToBeClickable(signup));
@@ -69,6 +71,7 @@ public class HomePage extends BasePage {
      * This method is used to retrieve welcoming message after logging in
      * @return welcoming message for the user
      */
+    @Step("Get welcoming message")
     public String getWelcomingMessage() {
 //        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 //        wait.until(ExpectedConditions.elementToBeClickable(nameOfUser));
@@ -81,6 +84,7 @@ public class HomePage extends BasePage {
      * This method is user to retrieve login error message
      * @return login error message
      */
+    @Step("Get login error message")
     public String getLoginError(){
         WebDriverWait alertWait = new WebDriverWait(driver, Duration.ofSeconds(3));
         alertWait.until(ExpectedConditions.alertIsPresent());

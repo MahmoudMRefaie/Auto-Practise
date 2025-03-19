@@ -1,5 +1,6 @@
 package utils;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -7,6 +8,7 @@ public class Validation {
 
     private Validation() {}
 
+    @Step("Validating true: {condition}")
     public static void validateTrue(boolean condition, String message) {
         Assert.assertTrue(condition, message);
     }
@@ -15,6 +17,7 @@ public class Validation {
         Assert.assertFalse(condition, message);
     }
 
+    @Step("Validating equals: {actual} and {expected}")
     public static void validateEquals(Object actual, Object expected, String message) {
         Assert.assertEquals(actual, expected, message);
     }

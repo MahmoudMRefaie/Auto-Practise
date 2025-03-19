@@ -22,18 +22,7 @@ public class BrowserFactory {
     public static WebDriver geBrowser(String browser) throws MalformedURLException {
         switch (browser.toLowerCase()) {
             case "chrome":
-                ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--start-maximized");
-                chromeOptions.addArguments("--disable-extensions");
-                chromeOptions.addArguments("--disable-notifications");
-                chromeOptions.addArguments("--remote-allow-origins=*");
-                chromeOptions.addArguments("--disable-infobars");
-                Map<String, Object> prefs = Map.of("profile.default_content_setting_values.notifications", 2,
-                        "credentials_enable_service", false,
-                        "profile.password_manager_enabled", false,
-                        "autofill.profile_enabled", false);
-                chromeOptions.setExperimentalOption("prefs", prefs);
-                chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+                ChromeOptions chromeOptions = getChromeOptions();
                 //firefoxOptions.addArguments("--headless");
                 return new ChromeDriver(chromeOptions);
             case "firefox":
@@ -53,23 +42,7 @@ public class BrowserFactory {
                 safariDriver.manage().window().maximize();
                 return safariDriver;
             case "edge":
-                EdgeOptions edgeOptions = new EdgeOptions();
-                edgeOptions.addArguments("--start-maximized",
-                        "--disable-extensions",
-                        "--disable-notifications",
-                        "--remote-allow-origins=*",
-                        "--disable-infobars");
-//                edgeOptions.addArguments("--disable-extensions");
-//                edgeOptions.addArguments("--disable-notifications");
-//                edgeOptions.addArguments("--remote-allow-origins=*");
-//                edgeOptions.addArguments("--disable-infobars");
-                Map<String, Object> edgePrefs = Map.of("profile.default_content_setting_values.notifications", 2,
-                        "credentials_enable_service", false,
-                        "profile.password_manager_enabled", false,
-                        "autofill.profile_enabled", false);
-                edgeOptions.setExperimentalOption("prefs", edgePrefs);
-
-                edgeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+                EdgeOptions edgeOptions = getEdgeOptions();
                 //firefoxOptions.addArguments("--headless");
                 return new EdgeDriver(edgeOptions);
             case "remote":
@@ -84,5 +57,42 @@ public class BrowserFactory {
             default:
                 throw new IllegalArgumentException("Invalid browser value");
         }
+    }
+
+    private static EdgeOptions getEdgeOptions() {
+        EdgeOptions edgeOptions = new EdgeOptions();
+        edgeOptions.addArguments("--start-maximized",
+                "--disable-extensions",
+                "--disable-notifications",
+                "--remote-allow-origins=*",
+                "--disable-infobars");
+//                edgeOptions.addArguments("--disable-extensions");
+//                edgeOptions.addArguments("--disable-notifications");
+//                edgeOptions.addArguments("--remote-allow-origins=*");
+//                edgeOptions.addArguments("--disable-infobars");
+        Map<String, Object> edgePrefs = Map.of("profile.default_content_setting_values.notifications", 2,
+                "credentials_enable_service", false,
+                "profile.password_manager_enabled", false,
+                "autofill.profile_enabled", false);
+        edgeOptions.setExperimentalOption("prefs", edgePrefs);
+
+        edgeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+        return edgeOptions;
+    }
+
+    private static ChromeOptions getChromeOptions() {
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--start-maximized");
+        chromeOptions.addArguments("--disable-extensions");
+        chromeOptions.addArguments("--disable-notifications");
+        chromeOptions.addArguments("--remote-allow-origins=*");
+        chromeOptions.addArguments("--disable-infobars");
+        Map<String, Object> prefs = Map.of("profile.default_content_setting_values.notifications", 2,
+                "credentials_enable_service", false,
+                "profile.password_manager_enabled", false,
+                "autofill.profile_enabled", false);
+        chromeOptions.setExperimentalOption("prefs", prefs);
+        chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+        return chromeOptions;
     }
 }

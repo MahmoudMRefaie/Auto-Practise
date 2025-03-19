@@ -1,6 +1,7 @@
 package pageObjectModels;
 
 import com.google.gson.JsonObject;
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.framework.Logger;
@@ -47,6 +48,7 @@ public class BasePage {
      * @param username username
      * @param password password
      */
+    @Step("Login with username: {username} and password: {password}")
     public void login(String username, String password) {
 
         ElementActions.click(driver, login);
@@ -74,6 +76,7 @@ public class BasePage {
      * @param password valid password
      * @return  access token
      */
+    @Step("Login using API with username: {username} and password: {password}")
     public String loginAPI(String username, String password) {
         if(password.equals("password"))     //password is encoded
             password = "cGFzc3dvcmQ=";
@@ -101,6 +104,7 @@ public class BasePage {
     /**
      * This method is used to logout from the system
      */
+    @Step("Logout")
     public void logout() {
 //        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 //        wait.until(ExpectedConditions.elementToBeClickable(logout));
@@ -112,6 +116,7 @@ public class BasePage {
     /**
      * This method is used to navigate to home page
      */
+    @Step("Navigate to home page")
     public void navigateToHome() {
         BrowserActions.navigateToURL(driver, "https://www.demoblaze.com/");
     }
@@ -119,6 +124,7 @@ public class BasePage {
     /**
      * This method is used to navigate to cart page
      */
+    @Step("Navigate to cart page")
     public void navigateToCart() {
         BrowserActions.navigateToURL(driver,"https://www.demoblaze.com/cart.html");
     }

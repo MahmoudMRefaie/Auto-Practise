@@ -1,5 +1,6 @@
 package driver;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -13,6 +14,7 @@ public class DriverManager {
 //        throw new UnsupportedOperationException("Utility class - cannot be instantiated");
 //    }
 
+    @Step("Create driver instance on: {browserName}")
     public static DriverManager createInstance(String browserName) {
         WebDriver driver;
         try {
@@ -33,5 +35,12 @@ public class DriverManager {
 
     private static void setDriver(WebDriver driver) {
        driverThreadLocal.set(driver);
+    }
+
+    public static void quitDriver() {
+        if(driverThreadLocal.get() != null) {
+            driverThreadLocal.get().quit();
+            driverThreadLocal.remove();
+        }
     }
 }

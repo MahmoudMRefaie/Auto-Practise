@@ -47,7 +47,8 @@ public class Category_Test {
 
     @AfterClass
     public void tearDown() {
-        driver.close();
+        //driver.close();
+        driver.quit();
     }
 
 }
