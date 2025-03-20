@@ -1,5 +1,6 @@
 import driver.DriverManager;
 import org.framework.JSONFileManager;
+import org.framework.PropertiesUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -63,10 +64,10 @@ public class Cart_Test {
 
     @BeforeClass
     public void setUp() {
-        driver = DriverManager.createInstance("firefox").getDriver();
+        driver = DriverManager.createInstance(PropertiesUtils.getPropertyValue("browserType")).getDriver();
         cartPage = new CartPage(driver);
         cartPage.navigateToHome();
-        testDataReader = new JSONFileManager("src/main/resources/testDataFiles/Cart.json");
+        testDataReader = new JSONFileManager("Cart");
     }
 
     @AfterClass
@@ -78,6 +79,7 @@ public class Cart_Test {
     @BeforeSuite
     public void setupSuite() {
         FilesUtils.deleteFile(new File("test-outputs/allure-results"));      //Should be handled at onStart Listeners for TestNG Listeners
+        PropertiesUtils.loadProperties();                                             //Should be handled at onStart Listeners for TestNG Listeners
     }
 
 }

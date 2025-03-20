@@ -5,6 +5,7 @@ import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.framework.Logger;
+import org.framework.PropertiesUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import utils.BrowserActions;
@@ -24,7 +25,7 @@ public class BasePage {
 
     public BasePage(WebDriver driver){
         this.driver = driver;
-        readProperties();
+        //readProperties();
     }
 
     private void readProperties() {
@@ -86,7 +87,7 @@ public class BasePage {
         requestBody.addProperty("password",password);
 
         System.out.println(requestBody);
-        RestAssured.baseURI = "https://api.demoblaze.com";
+        RestAssured.baseURI = PropertiesUtils.getPropertyValue("API_URL");
 
         Response response = given()
                 .header("Content-type", "application/json")
@@ -118,7 +119,7 @@ public class BasePage {
      */
     @Step("Navigate to home page")
     public void navigateToHome() {
-        BrowserActions.navigateToURL(driver, "https://www.demoblaze.com/");
+        BrowserActions.navigateToURL(driver, PropertiesUtils.getPropertyValue("BASE_WEB_URL"));
     }
 
     /**
@@ -126,7 +127,7 @@ public class BasePage {
      */
     @Step("Navigate to cart page")
     public void navigateToCart() {
-        BrowserActions.navigateToURL(driver,"https://www.demoblaze.com/cart.html");
+        BrowserActions.navigateToURL(driver,PropertiesUtils.getPropertyValue("BASE_WEB_URL") + "cart.html");
     }
 
 }
