@@ -1,5 +1,6 @@
 package driver;
 
+import org.framework.PropertiesUtils;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -23,17 +24,9 @@ public class BrowserFactory {
         switch (browser.toLowerCase()) {
             case "chrome":
                 ChromeOptions chromeOptions = getChromeOptions();
-                //firefoxOptions.addArguments("--headless");
                 return new ChromeDriver(chromeOptions);
             case "firefox":
-                FirefoxOptions firefoxOptions = new FirefoxOptions();
-                firefoxOptions.addArguments("--start-maximized");
-                firefoxOptions.addArguments("--disable-extensions");
-                firefoxOptions.addArguments("--disable-infobars");
-                firefoxOptions.addArguments("--disable-notifications");
-                firefoxOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-                firefoxOptions.setAcceptInsecureCerts(true);
-                //firefoxOptions.addArguments("--headless");
+                FirefoxOptions firefoxOptions = getFirefoxOptions();
                 return new FirefoxDriver(firefoxOptions);
             case "safari":
                 SafariOptions safariOptions = new SafariOptions();
@@ -43,7 +36,6 @@ public class BrowserFactory {
                 return safariDriver;
             case "edge":
                 EdgeOptions edgeOptions = getEdgeOptions();
-                //firefoxOptions.addArguments("--headless");
                 return new EdgeDriver(edgeOptions);
             case "remote":
                 ChromeOptions options = new ChromeOptions();
@@ -66,10 +58,10 @@ public class BrowserFactory {
                 "--disable-notifications",
                 "--remote-allow-origins=*",
                 "--disable-infobars");
-//                edgeOptions.addArguments("--disable-extensions");
-//                edgeOptions.addArguments("--disable-notifications");
-//                edgeOptions.addArguments("--remote-allow-origins=*");
-//                edgeOptions.addArguments("--disable-infobars");
+
+        if (!PropertiesUtils.getPropertyValue("executionType").equalsIgnoreCase("local"))
+            edgeOptions.addArguments("--headless");
+
         Map<String, Object> edgePrefs = Map.of("profile.default_content_setting_values.notifications", 2,
                 "credentials_enable_service", false,
                 "profile.password_manager_enabled", false,
@@ -87,12 +79,33 @@ public class BrowserFactory {
         chromeOptions.addArguments("--disable-notifications");
         chromeOptions.addArguments("--remote-allow-origins=*");
         chromeOptions.addArguments("--disable-infobars");
+
+        if (!PropertiesUtils.getPropertyValue("executionType").equalsIgnoreCase("local"))
+            chromeOptions.addArguments("--headless");
+
         Map<String, Object> prefs = Map.of("profile.default_content_setting_values.notifications", 2,
                 "credentials_enable_service", false,
                 "profile.password_manager_enabled", false,
                 "autofill.profile_enabled", false);
         chromeOptions.setExperimentalOption("prefs", prefs);
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+
         return chromeOptions;
+    }
+
+    private static FirefoxOptions getFirefoxOptions() {
+        FirefoxOptions firefoxOptions = new FirefoxOptions();
+        firefoxOptions.addArguments("--start-maximized");
+        firefoxOptions.addArguments("--disable-extensions");
+        firefoxOptions.addArguments("--disable-infobars");
+        firefoxOptions.addArguments("--disable-notifications");
+
+        if (!PropertiesUtils.getPropertyValue("executionType").equalsIgnoreCase("local"))
+            firefoxOptions.addArguments("--headless");
+
+        firefoxOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+        firefoxOptions.setAcceptInsecureCerts(true);
+
+        return firefoxOptions;
     }
 }
