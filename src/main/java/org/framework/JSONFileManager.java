@@ -2,6 +2,8 @@ package org.framework;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.jayway.jsonpath.JsonPath;
@@ -9,12 +11,10 @@ import com.jayway.jsonpath.PathNotFoundException;
 
 public class JSONFileManager {
 
-    private String jsonFilePath;
-    private FileReader reader = null;
+    private JsonObject jsonObject;
 
-    public JSONFileManager(String jsonFilePath){
-        this.jsonFilePath = jsonFilePath;
-        initializeReader();
+    public JSONFileManager(String jsonFile){
+        initializeObject(jsonFile);
     }
 
     public String getTestData(String jsonPath){
@@ -23,11 +23,9 @@ public class JSONFileManager {
     }
 
     private Object getJsonTestData(String jsonPath) {
-        Object testData = null;
-        initializeReader();
+        Object testData;
 
         try {
-            JsonObject jsonObject = new JsonParser().parse(reader).getAsJsonObject();
             testData = JsonPath.read(String.valueOf(jsonObject), jsonPath);
         } catch (PathNotFoundException ex) {
             System.out.println("Couldn't find the desired path [" + jsonPath + "]");
@@ -39,13 +37,15 @@ public class JSONFileManager {
         return testData;
     }
 
-    private void initializeReader(){
-        reader = null;
+    private void initializeObject(String fileName){
+        String filePath = PropertiesUtils.getPropertyValue("TESTDATAFILES_PATH") + fileName + ".json";
 
-        try {
-            reader = new FileReader(jsonFilePath);
+        try (FileReader reader = new FileReader(filePath)) {
+            this.jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
         } catch (FileNotFoundException e) {
-            System.out.println("Couldn't find the desired file [" + jsonFilePath + "]");
+            System.out.println("Couldn't find the desired file [" + fileName + "]");
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
