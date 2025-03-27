@@ -3,7 +3,6 @@ package utils;
 import io.qameta.allure.Allure;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -17,7 +16,7 @@ public class AllureUtils {
 
     public static void attachLogsToAllureReport() {
         try {
-            File logFile = FilesUtils.getLatestFile(ReportManager.LOGS_RESULTS_PATH);
+            File logFile = FilesManager.getLatestFile(ReportManager.LOGS_RESULTS_PATH);
             if (!logFile.exists()) {
                 ReportManager.warn("Log file does not exist: ", logFile.toString());
                 return;

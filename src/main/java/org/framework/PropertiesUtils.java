@@ -30,7 +30,7 @@ public class PropertiesUtils {
                 properties.putAll(System.getProperties());
                 System.getProperties().putAll(properties);
             });
-            ReportManager.info("Loading properties file data");
+            ReportManager.info("Loading properties file data: ", properties.toString());
             return properties;
         } catch (Exception e) {
             ReportManager.error("Failed to Load Properties File data because: " + e.getMessage());

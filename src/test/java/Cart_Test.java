@@ -1,17 +1,13 @@
 import driver.DriverManager;
+import listeners.TestNGListeners;
 import org.framework.JSONFileManager;
 import org.framework.PropertiesUtils;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjectModels.CartPage;
-import utils.AllureUtils;
-import utils.FilesUtils;
-import utils.ScreenshotsUtils;
 
-import java.io.File;
-
+@Listeners(TestNGListeners.class)
 public class Cart_Test {
     private WebDriver driver;
     private CartPage cartPage;
@@ -53,8 +49,6 @@ public class Cart_Test {
 
         Assert.assertEquals(testDataReader.getTestData("successfullyPurchasedMessage"),
                 cartPage.getSuccessfullyPurchasedMessage());
-
-        ScreenshotsUtils.takeScreenshot("success-checkout");
     }
 
     @AfterMethod
@@ -73,13 +67,6 @@ public class Cart_Test {
     @AfterClass
     public void tearDown() {
         driver.close();
-        AllureUtils.attachLogsToAllureReport();
-    }
-
-    @BeforeSuite
-    public void setupSuite() {
-        FilesUtils.deleteFile(new File("test-outputs/allure-results"));      //Should be handled at onStart Listeners for TestNG Listeners
-        PropertiesUtils.loadProperties();                                             //Should be handled at onStart Listeners for TestNG Listeners
     }
 
 }

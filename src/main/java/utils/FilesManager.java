@@ -1,13 +1,14 @@
 package utils;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 
-public class FilesUtils {
+public class FilesManager {
 
-    private FilesUtils() {
+    private FilesManager() {
         throw new UnsupportedOperationException("Utility class - cannot be instantiated");
     }
 
@@ -50,5 +51,20 @@ public class FilesUtils {
             }
         }
         return latestFile;
+    }
+
+    public static void cleanDirectory(File dirPath) {
+        if (!dirPath.exists()) {
+            ReportManager.warn("Directory does not exist: ", dirPath.toString());
+            dirPath.mkdirs();
+            ReportManager.info("Directory created: ", dirPath.toString());
+        }
+
+        try {
+            FileUtils.cleanDirectory(dirPath);          // no exception is thrown if files are in use
+        } catch (IOException e) {
+            ReportManager.error(e.getMessage());
+        }
+
     }
 }
