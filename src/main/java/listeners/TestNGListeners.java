@@ -2,10 +2,7 @@ package listeners;
 
 import org.framework.PropertiesUtils;
 import org.testng.*;
-import utils.AllureUtils;
-import utils.FilesManager;
-import utils.ReportManager;
-import utils.ScreenshotsUtils;
+import utils.*;
 
 import java.io.File;
 
@@ -32,22 +29,29 @@ public class TestNGListeners implements IExecutionListener, ITestListener, IInvo
             switch (testResult.getStatus()) {
                 case ITestResult.FAILURE:
                     ReportManager.error("Test method has failed", method.getTestMethod().getMethodName());
-                    ScreenshotsUtils.takeScreenshot("failed-" + testResult.getName());
+                    ScreenshotsUtils.takeScreenshot("failed-" + testResult.getName() + "_" + TimestampUtils.getTimestamp());
                     break;
                 case ITestResult.SKIP:
                     ReportManager.warn("Test method has been skipped:", method.getTestMethod().getMethodName());
-                    ScreenshotsUtils.takeScreenshot("skipped-" + testResult.getName());
+                    ScreenshotsUtils.takeScreenshot("skipped-" + testResult.getName() + "_" + TimestampUtils.getTimestamp());
                     break;
                 case ITestResult.SUCCESS:
                     ReportManager.info("Test method has passed:", method.getTestMethod().getMethodName());
-                    ScreenshotsUtils.takeScreenshot("passed-" + testResult.getName());
+                    ScreenshotsUtils.takeScreenshot("passed-" + testResult.getName() + "_" + TimestampUtils.getTimestamp());
                     break;
                 default:
                     ReportManager.warn("Test method has an unexpected status:", method.getTestMethod().getMethodName());
                     break;
             }
+
+            try {
+                SoftAssertion.softAssertAll();
+            } catch (AssertionError e) {
+                testResult.setStatus(ITestResult.FAILURE);
+                testResult.setThrowable(e);
+            }
             AllureUtils.attachLogsToAllureReport();
-            ReportManager.info("Test method has finished:", method.getTestMethod().getMethodName());
         }
+        ReportManager.info("Test method has finished:", method.getTestMethod().getMethodName());
     }
 }

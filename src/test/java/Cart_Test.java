@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjectModels.CartPage;
+import utils.BrowserActions;
+import utils.SoftAssertion;
 
 @Listeners(TestNGListeners.class)
 public class Cart_Test {
@@ -26,7 +28,7 @@ public class Cart_Test {
         cartPage.selectItem(testDataReader.getTestData("itemName"));
         String itemStatus = cartPage.addItemToCart();
 
-        Assert.assertEquals(testDataReader.getTestData("productAddedMessage"), itemStatus);
+        SoftAssertion.softAssertion.assertEquals(testDataReader.getTestData("productAddedMessage"), itemStatus);
     }
 
     @Test
@@ -52,7 +54,7 @@ public class Cart_Test {
     }
 
     @AfterMethod
-    public void returnToHome(){
+    public void returnToHome() {
         cartPage.navigateToHome();
     }
 
@@ -66,7 +68,7 @@ public class Cart_Test {
 
     @AfterClass
     public void tearDown() {
-        driver.close();
+        BrowserActions.closeBrowser(driver);
     }
 
 }

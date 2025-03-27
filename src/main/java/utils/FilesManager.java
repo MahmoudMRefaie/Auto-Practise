@@ -61,8 +61,8 @@ public class FilesManager {
         }
 
         try {
-            FileUtils.cleanDirectory(dirPath);          // no exception is thrown if files are in use
-        } catch (IOException e) {
+            FileUtils.deleteQuietly(dirPath);          // no exception is thrown if files are in use
+        } catch (Exception e) {
             ReportManager.error(e.getMessage());
         }
 
