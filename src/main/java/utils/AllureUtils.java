@@ -1,6 +1,7 @@
 package utils;
 
 import io.qameta.allure.Allure;
+import org.framework.PropertiesUtils;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -12,6 +13,19 @@ public class AllureUtils {
 
     private AllureUtils() {
         throw new UnsupportedOperationException("Utility class - cannot be instantiated");
+    }
+
+    public static void openAllureReport() {
+
+        if (PropertiesUtils.getPropertyValue("openAllureReportAutomatically").equalsIgnoreCase("true")) {
+            if (PropertiesUtils.getPropertyValue("os.name").toLowerCase().contains("win")) {
+                TerminalUtils.executeCommand("bash generate_allure_report.sh");
+            } else {
+                TerminalUtils.executeCommand("chmod", "+x", "generate_allure_report.sh");
+                TerminalUtils.executeCommand("./generate_allure_report.sh");
+            }
+        }
+
     }
 
     public static void attachLogsToAllureReport() {

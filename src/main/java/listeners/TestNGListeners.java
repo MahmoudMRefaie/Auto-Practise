@@ -21,6 +21,7 @@ public class TestNGListeners implements IExecutionListener, ITestListener, IInvo
     @Override
     public void onExecutionFinish() {
         ReportManager.info("TestNG has finished the execution");
+        AllureUtils.openAllureReport();
     }
 
     @Override

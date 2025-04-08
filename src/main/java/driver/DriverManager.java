@@ -1,11 +1,8 @@
 package driver;
 
-import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import utils.*;
-
-import java.net.MalformedURLException;
 
 public class DriverManager {
 
