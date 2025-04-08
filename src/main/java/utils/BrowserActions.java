@@ -1,5 +1,6 @@
 package utils;
 
+import driver.DriverManager;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 
@@ -10,45 +11,45 @@ public class BrowserActions {
     }
 
     @Step("Navigate to URL: {url}")
-    public static void navigateToURL(WebDriver driver, String url) {
+    public static void navigateToURL(DriverManager driver, String url) {
         ReportManager.info("Navigating to:", url);
-        driver.get(url);
+        driver.get().get(url);
     }
 
     @Step("Getting current URL")
-    public static String getCurrentURL(WebDriver driver) {
-        ReportManager.info("Getting current URL:", driver.getCurrentUrl());
-        return driver.getCurrentUrl();
+    public static String getCurrentURL(DriverManager driver) {
+        ReportManager.info("Getting current URL:", driver.get().getCurrentUrl());
+        return driver.get().getCurrentUrl();
     }
 
     @Step("Getting page title")
-    public static String getPageTitle(WebDriver driver) {
-        ReportManager.info("Getting title:", driver.getTitle());
-        return driver.getTitle();
+    public static String getPageTitle(DriverManager driver) {
+        ReportManager.info("Getting title:", driver.get().getTitle());
+        return driver.get().getTitle();
     }
 
     @Step("Refreshing page")
-    public static void refreshPage(WebDriver driver) {
-        ReportManager.info("Refreshing page:", driver.getCurrentUrl());
-        driver.navigate().refresh();
+    public static void refreshPage(DriverManager driver) {
+        ReportManager.info("Refreshing page:", driver.get().getCurrentUrl());
+        driver.get().navigate().refresh();
     }
 
     @Step("Navigating back")
-    public static void navigateBack(WebDriver driver) {
-        ReportManager.info("Navigating back from page:", driver.getCurrentUrl());
-        driver.navigate().back();
+    public static void navigateBack(DriverManager driver) {
+        ReportManager.info("Navigating back from page:", driver.get().getCurrentUrl());
+        driver.get().navigate().back();
     }
 
     @Step("Navigating forward")
-    public static void navigateForward(WebDriver driver) {
-        ReportManager.info("Navigating forward from page:", driver.getCurrentUrl());
-        driver.navigate().forward();
+    public static void navigateForward(DriverManager driver) {
+        ReportManager.info("Navigating forward from page:", driver.get().getCurrentUrl());
+        driver.get().navigate().forward();
     }
 
     @Step("Closing browser")
-    public static void closeBrowser(WebDriver driver) {
+    public static void closeBrowser(DriverManager driver) {
         ReportManager.info("Closing browser");
-        driver.quit();
+        DriverManager.quitDriver();
     }
 
 }

@@ -10,24 +10,22 @@ public class DriverManager {
 
     private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<WebDriver>();
 
-//    private DriverManager() {
-//        throw new UnsupportedOperationException("Utility class - cannot be instantiated");
-//    }
-
-    @Step("Create driver instance on: {browserName}")
-    public static DriverManager createInstance(String browserName) {
-        WebDriver driver;
-        try {
-            driver = BrowserFactory.geBrowser(browserName);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
+    public DriverManager(String browserName) {
+        WebDriver driver = getDriver(browserName).startDriver();
         setDriver(driver);
-        return new DriverManager();
     }
 
-    public WebDriver getDriver() {
-        if(driverThreadLocal.get() == null) {
+    public AbstractDriver getDriver(String browserName) {
+        return switch (browserName.toLowerCase()) {
+            case "chrome" -> new ChromeFactory();
+            case "firefox" -> new FirefoxFactory();
+            case "edge" -> new EdgeFactory();
+            default -> throw new IllegalArgumentException("Invalid browser value");
+        };
+    }
+
+    public static WebDriver get() {
+        if (driverThreadLocal.get() == null) {
             Assert.fail("Driver has not been initialized.");
         }
         return driverThreadLocal.get();

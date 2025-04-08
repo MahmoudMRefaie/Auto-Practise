@@ -1,5 +1,6 @@
 package utils;
 
+import driver.DriverManager;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -34,11 +35,11 @@ public class Validation {
         Assert.assertNotNull(object, message);
     }
 
-    public static void validatePageURL(WebDriver driver, String expectedURL) {
+    public static void validatePageURL(DriverManager driver, String expectedURL) {
         Assert.assertEquals(BrowserActions.getCurrentURL(driver), expectedURL);
     }
 
-    public static void validatePageTitle(WebDriver driver, String expectedTitle) {
+    public static void validatePageTitle(DriverManager driver, String expectedTitle) {
         Assert.assertEquals(BrowserActions.getPageTitle(driver), expectedTitle);
     }
 }

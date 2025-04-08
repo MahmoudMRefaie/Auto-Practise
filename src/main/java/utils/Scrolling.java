@@ -1,5 +1,6 @@
 package utils;
 
+import driver.DriverManager;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -13,8 +14,8 @@ public class Scrolling {
     }
 
     @Step("Scrolling to element: {locator}")
-    public static void scrollToElement(WebDriver driver, By locator) {
+    public static void scrollToElement(DriverManager driver, By locator) {
         ReportManager.info("Scrolling to element: ", locator.toString());
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", driver.findElement(locator));
+        ((JavascriptExecutor) driver.get()).executeScript("arguments[0].scrollIntoView(true);", driver.get().findElement(locator));
     }
 }

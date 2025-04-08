@@ -1,18 +1,23 @@
 import driver.DriverManager;
+import listeners.TestNGListeners;
 import org.framework.JSONFileManager;
+import org.framework.PropertiesUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageObjectModels.CategoriesPage;
 import pageObjectModels.CategoriesPage.Categories;
+import utils.BrowserActions;
 
 import java.util.List;
 
+@Listeners(TestNGListeners.class)
 public class Category_Test {
-    private WebDriver driver;
+    private DriverManager driver;
     private CategoriesPage categoriesPage;
     private JSONFileManager testDataReader;
 
@@ -39,16 +44,15 @@ public class Category_Test {
 
     @BeforeClass
     public void setUp() {
-        driver = DriverManager.createInstance("safari").getDriver();
+        driver = new DriverManager(PropertiesUtils.getPropertyValue("browserType"));
         categoriesPage = new CategoriesPage(driver);
         categoriesPage.navigateToHome();
-        testDataReader = new JSONFileManager("src/main/resources/testDataFiles/Category.json");
+        testDataReader = new JSONFileManager("Category");
     }
 
     @AfterClass
     public void tearDown() {
-        //driver.close();
-        driver.quit();
+        BrowserActions.closeBrowser(driver);
     }
 
 }

@@ -1,14 +1,18 @@
 import driver.DriverManager;
+import listeners.TestNGListeners;
 import org.framework.JSONFileManager;
+import org.framework.PropertiesUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjectModels.HomePage;
+import utils.BrowserActions;
 
+@Listeners(TestNGListeners.class)
 public class Login_Test {
-    private WebDriver driver;
+    private DriverManager driver;
     private HomePage home;
     private JSONFileManager testDataReader;
 
@@ -68,15 +72,15 @@ public class Login_Test {
 
     @BeforeClass
     public void setUp() {
-        driver = DriverManager.createInstance("chrome").getDriver();
+        driver = new DriverManager(PropertiesUtils.getPropertyValue("browserType"));
         home = new HomePage(driver);
         home.navigateToHome();
-        testDataReader = new JSONFileManager("src/main/resources/testDataFiles/Login.json");
+        testDataReader = new JSONFileManager("Login");
     }
 
     @AfterClass
     public void tearDown() {
         home.logout();
-        driver.close();
+        BrowserActions.closeBrowser(driver);
     }
 }

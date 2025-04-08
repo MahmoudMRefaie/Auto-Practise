@@ -1,5 +1,6 @@
 package utils;
 
+import driver.DriverManager;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,30 +17,30 @@ public class Waits {
         throw new UnsupportedOperationException("Utility class - cannot be instantiated");
     }
 
-    public static WebElement waitForElementToBePresent(WebDriver driver, By locator) {
+    public static WebElement waitForElementToBePresent(DriverManager driver, By locator) {
         ReportManager.info("Waiting for element to be present: ", locator.toString());
-        return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT))
+        return new WebDriverWait(driver.get(), Duration.ofSeconds(TIMEOUT))
                 .until(driver1 -> driver1.findElement(locator));
     }
 
-    public static Alert waitForAlertToBePresent(WebDriver driver) {
-        ReportManager.info("Waiting for alert to be present in page: ", driver.getCurrentUrl());
-        return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT))
+    public static Alert waitForAlertToBePresent(DriverManager driver) {
+        ReportManager.info("Waiting for alert to be present in page: ", driver.get().getCurrentUrl());
+        return new WebDriverWait(driver.get(), Duration.ofSeconds(TIMEOUT))
                 .until(ExpectedConditions.alertIsPresent());
     }
 
-    public static WebElement waitForElementToBeVisible(WebDriver driver, By locator) {
+    public static WebElement waitForElementToBeVisible(DriverManager driver, By locator) {
         ReportManager.info("Waiting for element to be visible: ", locator.toString());
-        return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT))
+        return new WebDriverWait(driver.get(), Duration.ofSeconds(TIMEOUT))
                 .until(driver1 -> {
                     WebElement element = waitForElementToBePresent(driver, locator);
                     return element.isDisplayed() ? element : null;
                 });
     }
 
-    public static WebElement waitForElementToBeClickable(WebDriver driver, By locator) {
+    public static WebElement waitForElementToBeClickable(DriverManager driver, By locator) {
         ReportManager.info("Waiting for element to be clickable: ", locator.toString());
-        return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT))
+        return new WebDriverWait(driver.get(), Duration.ofSeconds(TIMEOUT))
                 .until(driver1 -> {
                     WebElement element = waitForElementToBePresent(driver, locator);
                     return element.isEnabled() ? element : null;

@@ -1,5 +1,6 @@
 package pageObjectModels;
 
+import driver.DriverManager;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,14 +13,14 @@ import java.time.Duration;
 import java.util.List;
 
 public class CategoriesPage extends BasePage {
-    private final WebDriver driver;
+    private final DriverManager driver;
     private final By categoriesHeader = By.linkText("CATEGORIES");
     private final By phonesCatElement = By.linkText("Phones");
     private final By laptopsCatElement = By.linkText("Laptops");
     private final By monitorsCatElement = By.linkText("Monitors");
     private final By itemsContainer = By.id("tbodyid");
 
-    public CategoriesPage(WebDriver driver) {
+    public CategoriesPage(DriverManager driver) {
         super(driver);
         this.driver = driver;
     }
@@ -40,31 +41,31 @@ public class CategoriesPage extends BasePage {
     @Step("Getting items for category: {category}")
     public List<WebElement> getCategoryItems(Categories category) {
         List<WebElement> items = null;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver.get(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.elementToBeClickable(categoriesHeader));
 
         switch (category.geCategoryName()){
         case "Phones":
             ElementActions.click(driver, phonesCatElement);
             //driver.findElement(phonesCatElement).click();
-            WebElement container = driver.findElement(itemsContainer);
-            WebDriverWait waitItem = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebElement container = driver.get().findElement(itemsContainer);
+            WebDriverWait waitItem = new WebDriverWait(driver.get(), Duration.ofSeconds(5));
             waitItem.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@id='tbodyid'] //div)[1]")));
             items = container.findElements(By.tagName("div"));
             break;
         case "Laptops":
             ElementActions.click(driver, laptopsCatElement);
             //driver.findElement(laptopsCatElement).click();
-            WebElement laptopsContainer = driver.findElement(itemsContainer);
-            WebDriverWait laptopsContainerWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebElement laptopsContainer = driver.get().findElement(itemsContainer);
+            WebDriverWait laptopsContainerWait = new WebDriverWait(driver.get(), Duration.ofSeconds(5));
             laptopsContainerWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@id='tbodyid'] //div)[1]")));
             items = laptopsContainer.findElements(By.tagName("div"));
             break;
         case "Monitors":
             ElementActions.click(driver, monitorsCatElement);
             //driver.findElement(monitorsCatElement).click();
-            WebElement monitorsContainer = driver.findElement(itemsContainer);
-            WebDriverWait monitorsContainerWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebElement monitorsContainer = driver.get().findElement(itemsContainer);
+            WebDriverWait monitorsContainerWait = new WebDriverWait(driver.get(), Duration.ofSeconds(5));
             monitorsContainerWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@id='tbodyid'] //div)[1]")));
             items = monitorsContainer.findElements(By.tagName("div"));
             break;

@@ -1,5 +1,6 @@
 package pageObjectModels;
 
+import driver.DriverManager;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +13,7 @@ import utils.ElementActions;
 import java.time.Duration;
 
 public class CartPage extends BasePage {
-    private final WebDriver driver;
+    private final DriverManager driver;
     private final By cardTitle = By.xpath("//h4 [@class='card-title']");
     private final By btn_placeOrder = By.xpath("//button [@class='btn btn-success']");
     private final By btn_addToCart = By.linkText("Add to cart");
@@ -27,7 +28,7 @@ public class CartPage extends BasePage {
     private final By purchasedMessage = By.xpath("//div [@data-has-confirm-button='true'] //h2");
     private final By btn_okPurchased = By.xpath("//button [@class='confirm btn btn-lg btn-primary']");
 
-    public CartPage(WebDriver driver) {
+    public CartPage(DriverManager driver) {
         super(driver);
         this.driver = driver;
     }
@@ -52,10 +53,10 @@ public class CartPage extends BasePage {
 
         ElementActions.click(driver, btn_addToCart);
 
-        WebDriverWait alertWait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait alertWait = new WebDriverWait(driver.get(), Duration.ofSeconds(3));
         alertWait.until(ExpectedConditions.alertIsPresent());
-        String alertMessage = driver.switchTo().alert().getText();
-        driver.switchTo().alert().accept();
+        String alertMessage = driver.get().switchTo().alert().getText();
+        driver.get().switchTo().alert().accept();
 
         return alertMessage;
     }
@@ -68,11 +69,11 @@ public class CartPage extends BasePage {
 
     @Step("Deleting item: {itemName}")
     public void deleteItem(String itemName) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver.get(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.elementToBeClickable(btn_deleteItem));
 
         By desiredItem = By.xpath("//text()[contains(.,\"" + itemName + "\")]");
-        driver.findElement(desiredItem).findElement(By.xpath("parent::*")).findElement(btn_deleteItem).click();
+        driver.get().findElement(desiredItem).findElement(By.xpath("parent::*")).findElement(btn_deleteItem).click();
     }
 
     @Step("Placing order")

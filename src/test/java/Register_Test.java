@@ -1,5 +1,7 @@
 import driver.DriverManager;
+import listeners.TestNGListeners;
 import org.framework.JSONFileManager;
+import org.framework.PropertiesUtils;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,14 +10,17 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageObjectModels.HomePage;
+import utils.BrowserActions;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
+@Listeners(TestNGListeners.class)
 public class Register_Test {
-    private WebDriver driver;
+    private DriverManager driver;
     private HomePage home;
     private JSONFileManager testDataReader;
 
@@ -54,14 +59,14 @@ public class Register_Test {
     @BeforeClass
     public void setUp() {
 
-        driver = DriverManager.createInstance("remote").getDriver();
+        driver = new DriverManager(PropertiesUtils.getPropertyValue("browserType"));
         home = new HomePage(driver);
         home.navigateToHome();
-        testDataReader = new JSONFileManager("src/main/resources/testDataFiles/Register.json");
+        testDataReader = new JSONFileManager("Register");
     }
 
     @AfterClass
     public void tearDown() {
-        driver.close();
+        BrowserActions.closeBrowser(driver);
     }
 }

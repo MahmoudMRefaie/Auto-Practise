@@ -2,7 +2,6 @@ import driver.DriverManager;
 import listeners.TestNGListeners;
 import org.framework.JSONFileManager;
 import org.framework.PropertiesUtils;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjectModels.CartPage;
@@ -11,7 +10,7 @@ import utils.SoftAssertion;
 
 @Listeners(TestNGListeners.class)
 public class Cart_Test {
-    private WebDriver driver;
+    private DriverManager driver;
     private CartPage cartPage;
     private JSONFileManager testDataReader;
 
@@ -60,7 +59,7 @@ public class Cart_Test {
 
     @BeforeClass
     public void setUp() {
-        driver = DriverManager.createInstance(PropertiesUtils.getPropertyValue("browserType")).getDriver();
+        driver = new DriverManager(PropertiesUtils.getPropertyValue("browserType"));
         cartPage = new CartPage(driver);
         cartPage.navigateToHome();
         testDataReader = new JSONFileManager("Cart");

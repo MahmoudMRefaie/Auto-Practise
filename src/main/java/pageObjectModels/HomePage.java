@@ -1,5 +1,6 @@
 package pageObjectModels;
 
+import driver.DriverManager;
 import io.qameta.allure.Step;
 import org.framework.Logger;
 import org.openqa.selenium.By;
@@ -14,7 +15,7 @@ import java.time.Duration;
 
 public class HomePage extends BasePage {
 
-    private final WebDriver driver;
+    private final DriverManager driver;
     private final By signup = By.linkText("Sign up");
     private final By registerUsernameElement = By.id("sign-username");
     private final By registerPasswordElement = By.id("sign-password");
@@ -22,7 +23,7 @@ public class HomePage extends BasePage {
 
     private final By nameOfUser = By.id("nameofuser");
 
-    public HomePage(WebDriver driver) {
+    public HomePage(DriverManager driver) {
         super(driver);
         this.driver = driver;
     }
@@ -61,7 +62,7 @@ public class HomePage extends BasePage {
         String alertMessage = AlertActions.getAlertText(driver);
         AlertActions.acceptAlert(driver);
 
-        Actions action = new Actions(driver);
+        Actions action = new Actions(driver.get());
         action.moveByOffset(0, 0).click().build().perform();
 
         return alertMessage;
@@ -86,12 +87,12 @@ public class HomePage extends BasePage {
      */
     @Step("Get login error message")
     public String getLoginError(){
-        WebDriverWait alertWait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait alertWait = new WebDriverWait(driver.get(), Duration.ofSeconds(3));
         alertWait.until(ExpectedConditions.alertIsPresent());
-        String alertMessage = driver.switchTo().alert().getText();
-        driver.switchTo().alert().accept();
+        String alertMessage = driver.get().switchTo().alert().getText();
+        driver.get().switchTo().alert().accept();
 
-        Actions action = new Actions(driver);
+        Actions action = new Actions(driver.get());
         action.moveByOffset(0, 0).click().build().perform();   //to return to the original page
 
         return alertMessage;

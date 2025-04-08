@@ -1,6 +1,7 @@
 package pageObjectModels;
 
 import com.google.gson.JsonObject;
+import driver.DriverManager;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -15,7 +16,7 @@ import static io.restassured.RestAssured.given;
 
 public class BasePage {
 
-    private final WebDriver driver;
+    private final DriverManager driver;
     private final By home = By.linkText("Home");
     private final By login = By.linkText("Log in");
     private final By loginUsernameElement = By.id("loginusername");
@@ -23,7 +24,7 @@ public class BasePage {
     private final By loginButton = By.xpath("//button[@onclick='logIn()']");
     private final By logout = By.linkText("Log out");
 
-    public BasePage(WebDriver driver){
+    public BasePage(DriverManager driver){
         this.driver = driver;
         //readProperties();
     }
@@ -53,22 +54,10 @@ public class BasePage {
     public void login(String username, String password) {
 
         ElementActions.click(driver, login);
-        //driver.findElement(login).click();
-
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-//        wait.until(ExpectedConditions.elementToBeClickable(loginUsernameElement));
-
         Logger.log("Login with username [" + username + "] and password [" + password + "]");
-//        ElementActions.clear(driver, loginUsernameElement);
-//        driver.findElement(loginUsernameElement).clear();
         ElementActions.sendKeys(driver, loginUsernameElement, username);
-        //driver.findElement(loginUsernameElement).sendKeys(username);
-//        ElementActions.clear(driver, loginPasswordElement);
-//        driver.findElement(loginPasswordElement).clear();
         ElementActions.sendKeys(driver, loginPasswordElement, password);
-        //driver.findElement(loginPasswordElement).sendKeys(password);
         ElementActions.click(driver, loginButton);
-        //driver.findElement(loginButton).click();
     }
 
     /**
