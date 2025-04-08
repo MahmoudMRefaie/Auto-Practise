@@ -67,6 +67,6 @@ public class Register_Test {
 
     @AfterClass
     public void tearDown() {
-        BrowserActions.closeBrowser(driver);
+        driver.browser().closeBrowser();
     }
 }

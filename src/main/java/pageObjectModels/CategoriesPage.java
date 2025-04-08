@@ -46,7 +46,7 @@ public class CategoriesPage extends BasePage {
 
         switch (category.geCategoryName()){
         case "Phones":
-            ElementActions.click(driver, phonesCatElement);
+            driver.element().click(phonesCatElement);
             //driver.findElement(phonesCatElement).click();
             WebElement container = driver.get().findElement(itemsContainer);
             WebDriverWait waitItem = new WebDriverWait(driver.get(), Duration.ofSeconds(5));
@@ -54,7 +54,7 @@ public class CategoriesPage extends BasePage {
             items = container.findElements(By.tagName("div"));
             break;
         case "Laptops":
-            ElementActions.click(driver, laptopsCatElement);
+            driver.element().click(laptopsCatElement);
             //driver.findElement(laptopsCatElement).click();
             WebElement laptopsContainer = driver.get().findElement(itemsContainer);
             WebDriverWait laptopsContainerWait = new WebDriverWait(driver.get(), Duration.ofSeconds(5));
@@ -62,7 +62,7 @@ public class CategoriesPage extends BasePage {
             items = laptopsContainer.findElements(By.tagName("div"));
             break;
         case "Monitors":
-            ElementActions.click(driver, monitorsCatElement);
+            driver.element().click(monitorsCatElement);
             //driver.findElement(monitorsCatElement).click();
             WebElement monitorsContainer = driver.get().findElement(itemsContainer);
             WebDriverWait monitorsContainerWait = new WebDriverWait(driver.get(), Duration.ofSeconds(5));

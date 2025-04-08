@@ -18,9 +18,9 @@ public class ScreenshotsUtils {
         throw new UnsupportedOperationException("Utility class - cannot be instantiated");
     }
 
-    public static void takeScreenshot(String screenshotName) {
+    public static void takeScreenshot(WebDriver driver, String screenshotName) {
         try {
-            File screenshot = ((TakesScreenshot) DriverManager.get()).getScreenshotAs(OutputType.FILE);
+            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             File screenshotFile = new File(SCREENSHOTS_PATH + screenshotName + ".png");
             FileUtils.copyFile(screenshot, screenshotFile);
             AllureUtils.addScreenshotToAllure(screenshotName, screenshotFile.getPath());

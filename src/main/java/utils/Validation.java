@@ -7,39 +7,43 @@ import org.testng.Assert;
 
 public class Validation {
 
-    private Validation() {}
+    private final BrowserActions browserActions;
+
+    public Validation(WebDriver driver) {
+        browserActions = new BrowserActions(driver);
+    }
 
     @Step("Validating true: {condition}")
-    public static void validateTrue(boolean condition, String message) {
+    public void validateTrue(boolean condition, String message) {
         Assert.assertTrue(condition, message);
     }
 
-    public static void validateFalse(boolean condition, String message) {
+    public void validateFalse(boolean condition, String message) {
         Assert.assertFalse(condition, message);
     }
 
     @Step("Validating equals: {actual} and {expected}")
-    public static void validateEquals(Object actual, Object expected, String message) {
+    public void validateEquals(Object actual, Object expected, String message) {
         Assert.assertEquals(actual, expected, message);
     }
 
-    public static void validateNotEquals(Object actual, Object expected, String message) {
+    public void validateNotEquals(Object actual, Object expected, String message) {
         Assert.assertNotEquals(actual, expected, message);
     }
 
-    public static void validateNull(Object object, String message) {
+    public void validateNull(Object object, String message) {
         Assert.assertNull(object, message);
     }
 
-    public static void validateNotNull(Object object, String message) {
+    public void validateNotNull(Object object, String message) {
         Assert.assertNotNull(object, message);
     }
 
-    public static void validatePageURL(DriverManager driver, String expectedURL) {
-        Assert.assertEquals(BrowserActions.getCurrentURL(driver), expectedURL);
+    public void validatePageURL(String expectedURL) {
+        Assert.assertEquals(browserActions.getCurrentURL(), expectedURL);
     }
 
-    public static void validatePageTitle(DriverManager driver, String expectedTitle) {
-        Assert.assertEquals(BrowserActions.getPageTitle(driver), expectedTitle);
+    public void validatePageTitle(String expectedTitle) {
+        Assert.assertEquals(browserActions.getPageTitle(), expectedTitle);
     }
 }

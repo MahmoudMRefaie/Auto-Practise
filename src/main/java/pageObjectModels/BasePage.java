@@ -53,11 +53,11 @@ public class BasePage {
     @Step("Login with username: {username} and password: {password}")
     public void login(String username, String password) {
 
-        ElementActions.click(driver, login);
+        driver.element().click(login);
         Logger.log("Login with username [" + username + "] and password [" + password + "]");
-        ElementActions.sendKeys(driver, loginUsernameElement, username);
-        ElementActions.sendKeys(driver, loginPasswordElement, password);
-        ElementActions.click(driver, loginButton);
+        driver.element().sendKeys(loginUsernameElement, username);
+        driver.element().sendKeys(loginPasswordElement, password);
+        driver.element().click(loginButton);
     }
 
     /**
@@ -99,7 +99,7 @@ public class BasePage {
 //        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 //        wait.until(ExpectedConditions.elementToBeClickable(logout));
 
-        ElementActions.click(driver, logout);
+        driver.element().click(logout);
         //driver.findElement(logout).click();
     }
 
@@ -108,7 +108,7 @@ public class BasePage {
      */
     @Step("Navigate to home page")
     public void navigateToHome() {
-        BrowserActions.navigateToURL(driver, PropertiesUtils.getPropertyValue("BASE_WEB_URL"));
+        driver.browser().navigateToURL(PropertiesUtils.getPropertyValue("BASE_WEB_URL"));
     }
 
     /**
@@ -116,7 +116,7 @@ public class BasePage {
      */
     @Step("Navigate to cart page")
     public void navigateToCart() {
-        BrowserActions.navigateToURL(driver,PropertiesUtils.getPropertyValue("BASE_WEB_URL") + "cart.html");
+        driver.browser().navigateToURL(PropertiesUtils.getPropertyValue("BASE_WEB_URL") + "cart.html");
     }
 
 }

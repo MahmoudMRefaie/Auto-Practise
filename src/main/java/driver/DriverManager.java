@@ -3,6 +3,7 @@ package driver;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import utils.*;
 
 import java.net.MalformedURLException;
 
@@ -24,10 +25,14 @@ public class DriverManager {
         };
     }
 
-    public static WebDriver get() {
+    public WebDriver get() {
         if (driverThreadLocal.get() == null) {
             Assert.fail("Driver has not been initialized.");
         }
+        return driverThreadLocal.get();
+    }
+
+    public static WebDriver getInstance() {
         return driverThreadLocal.get();
     }
 
@@ -40,5 +45,21 @@ public class DriverManager {
             driverThreadLocal.get().quit();
             driverThreadLocal.remove();
         }
+    }
+
+    public BrowserActions browser() {
+        return new BrowserActions(get());
+    }
+
+    public ElementActions element() {
+        return new ElementActions(get());
+    }
+
+    public Validation validate() {
+        return new Validation(get());
+    }
+
+    public AlertActions alert() {
+        return new AlertActions(get());
     }
 }

@@ -36,22 +36,22 @@ public class CartPage extends BasePage {
     @Step("Selecting a random item")
     public void selectRandomItem(){
 
-        ElementActions.click(driver, cardTitle);
+        driver.element().click(cardTitle);
     }
 
     @Step("Selecting item: {itemName}")
     public void selectItem(String itemName){
 
-        ElementActions.click(driver, By.linkText(itemName));
+        driver.element().click(By.linkText(itemName));
 //        By itemImage = RelativeLocator.with(By.tagName("a")).above(By.linkText(itemName));
-//        ElementActions.click(driver, itemImage);
+//        driver.element().click(itemImage);
 
     }
 
     @Step("Adding item to cart")
     public String addItemToCart(){
 
-        ElementActions.click(driver, btn_addToCart);
+        driver.element().click(btn_addToCart);
 
         WebDriverWait alertWait = new WebDriverWait(driver.get(), Duration.ofSeconds(3));
         alertWait.until(ExpectedConditions.alertIsPresent());
@@ -64,7 +64,7 @@ public class CartPage extends BasePage {
     @Step("Deleting item")
     public void deleteItem() {
 
-        ElementActions.click(driver, btn_deleteItem);
+        driver.element().click(btn_deleteItem);
     }
 
     @Step("Deleting item: {itemName}")
@@ -79,26 +79,26 @@ public class CartPage extends BasePage {
     @Step("Placing order")
     public void placeOrder() {
 
-        ElementActions.click(driver, btn_placeOrder);
+        driver.element().click(btn_placeOrder);
     }
 
     @Step("Adding buyer information: {fullName}, {country}, {city}, {creditCard}, {month}, {year}")
     public void addBuyerInfo(String fullName, String country, String city, String creditCard, String month, String year) {
 
-        ElementActions.sendKeys(driver, nameInfo, fullName);
-        ElementActions.sendKeys(driver, countryInfo, country);
-        ElementActions.sendKeys(driver, cityInfo, city);
-        ElementActions.sendKeys(driver, cardInfo, creditCard);
-        ElementActions.sendKeys(driver, monthInfo, month);
-        ElementActions.sendKeys(driver, yearInfo, year);
-        ElementActions.click(driver, purchase);
+        driver.element().sendKeys(nameInfo, fullName);
+        driver.element().sendKeys(countryInfo, country);
+        driver.element().sendKeys(cityInfo, city);
+        driver.element().sendKeys(cardInfo, creditCard);
+        driver.element().sendKeys(monthInfo, month);
+        driver.element().sendKeys(yearInfo, year);
+        driver.element().click(purchase);
     }
 
     @Step("Getting successfully purchased message")
     public String getSuccessfullyPurchasedMessage(){
 
-        String message = ElementActions.getText(driver, purchasedMessage);
-        ElementActions.click(driver, btn_okPurchased);
+        String message = driver.element().getText(purchasedMessage);
+        driver.element().click(btn_okPurchased);
         return message;
     }
 

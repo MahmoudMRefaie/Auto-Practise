@@ -36,31 +36,16 @@ public class HomePage extends BasePage {
      */
     @Step("Register with username: {username} and password: {password}")
     public String registerUser(String username, String password) {
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));   //Explicit wait
-//        wait.until(ExpectedConditions.elementToBeClickable(signup));
 
-        ElementActions.click(driver, signup);
-        //driver.findElement(signup).click();
-
-//        wait.until(ExpectedConditions.elementToBeClickable(registerUsernameElement));
+        driver.element().click(signup);
 
         Logger.log("Register with username [" + username + "] and password [" + password + "]");
-//        driver.findElement(registerUsernameElement).clear();
-        ElementActions.sendKeys(driver, registerUsernameElement, username);
-        //driver.findElement(registerUsernameElement).sendKeys(username);
-//        driver.findElement(registerPasswordElement).clear();
-        ElementActions.sendKeys(driver, registerPasswordElement, password);
-        //driver.findElement(registerPasswordElement).sendKeys(password);
-        ElementActions.click(driver, signupButton);
-        //driver.findElement(signupButton).click();
+        driver.element().sendKeys(registerUsernameElement, username);
+        driver.element().sendKeys(registerPasswordElement, password);
+        driver.element().click(signupButton);
 
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));   //Explicit wait
-//        wait.until(ExpectedConditions.alertIsPresent());
-//        String alertMessage = driver.switchTo().alert().getText();
-//        driver.switchTo().alert().accept();
-
-        String alertMessage = AlertActions.getAlertText(driver);
-        AlertActions.acceptAlert(driver);
+        String alertMessage = driver.alert().getAlertText();
+        driver.alert().acceptAlert();
 
         Actions action = new Actions(driver.get());
         action.moveByOffset(0, 0).click().build().perform();
@@ -74,11 +59,7 @@ public class HomePage extends BasePage {
      */
     @Step("Get welcoming message")
     public String getWelcomingMessage() {
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-//        wait.until(ExpectedConditions.elementToBeClickable(nameOfUser));
-
-        return ElementActions.getText(driver, nameOfUser);
-        //return driver.findElement(nameOfUser).getText();
+        return driver.element().getText(nameOfUser);
     }
 
     /**

@@ -17,7 +17,7 @@ public class Login_Test {
     private JSONFileManager testDataReader;
 
     @Test(priority = 1)
-    public void loginWithCorrectUser(){
+    public void loginWithCorrectUser() {
         String loginUsername = testDataReader.getTestData("username");
 
         home.login(loginUsername, testDataReader.getTestData("password"));
@@ -26,7 +26,7 @@ public class Login_Test {
     }
 
     @Test
-    public void loginWithNotExistUser(){
+    public void loginWithNotExistUser() {
         home.login(testDataReader.getTestData("notExistUser"),
                 testDataReader.getTestData("password"));
 
@@ -34,7 +34,7 @@ public class Login_Test {
     }
 
     @Test
-    public void loginWithWrongPassword(){
+    public void loginWithWrongPassword() {
         home.login(testDataReader.getTestData("username"),
                 testDataReader.getTestData("wrongPassword"));
 
@@ -42,28 +42,28 @@ public class Login_Test {
     }
 
     @Test
-    public void loginWithEmptyUsername(){
+    public void loginWithEmptyUsername() {
         home.login("", testDataReader.getTestData("wrongPassword"));
 
         Assert.assertEquals(testDataReader.getTestData("emptyUsernameOrPassword"), home.getLoginError());
     }
 
     @Test
-    public void loginWithEmptyPassword(){
+    public void loginWithEmptyPassword() {
         home.login(testDataReader.getTestData("username"), "");
 
         Assert.assertEquals(testDataReader.getTestData("emptyUsernameOrPassword"), home.getLoginError());
     }
 
     @Test
-    public void loginWithEmptyUsernameAndPassword(){
+    public void loginWithEmptyUsernameAndPassword() {
         home.login("", "");
 
         Assert.assertEquals(testDataReader.getTestData("emptyUsernameOrPassword"), home.getLoginError());
     }
 
     @Test
-    public void loginCaseSensitiveUsername(){
+    public void loginCaseSensitiveUsername() {
         home.login(testDataReader.getTestData("caseSensitiveUsername"),
                 testDataReader.getTestData("password"));
 
@@ -81,6 +81,6 @@ public class Login_Test {
     @AfterClass
     public void tearDown() {
         home.logout();
-        BrowserActions.closeBrowser(driver);
+        driver.browser().closeBrowser();
     }
 }

@@ -5,7 +5,6 @@ import org.framework.PropertiesUtils;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjectModels.CartPage;
-import utils.BrowserActions;
 import utils.SoftAssertion;
 
 @Listeners(TestNGListeners.class)
@@ -67,7 +66,7 @@ public class Cart_Test {
 
     @AfterClass
     public void tearDown() {
-        BrowserActions.closeBrowser(driver);
+        driver.browser().closeBrowser();
     }
 
 }

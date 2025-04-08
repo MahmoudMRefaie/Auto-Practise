@@ -52,7 +52,7 @@ public class Category_Test {
 
     @AfterClass
     public void tearDown() {
-        BrowserActions.closeBrowser(driver);
+        driver.browser().closeBrowser();
     }
 
 }
